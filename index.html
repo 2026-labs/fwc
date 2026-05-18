@@ -76,6 +76,30 @@ body{overflow:hidden;touch-action:none;width:100%;background:#111;font-family:-a
 #dexBtn:active{background:rgba(0,255,160,0.28);transform:scale(0.97);}
 #dexBtn .dex-dot{width:6px;height:6px;border-radius:50%;background:#00ffa0;flex-shrink:0;animation:blink 1.4s ease-in-out infinite;}
 #dexBtn .dex-main{font-size:11px;font-weight:800;color:#00ffa0;letter-spacing:.3px;white-space:nowrap;}
+
+/* CA Styling */
+#caRow{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:10px;padding:6px 6px 6px 14px;
+  background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);
+  border-radius:100px;
+}
+#caText{
+  font-family:monospace;font-size:11px;color:rgba(255,255,255,0.6);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  margin-right:8px;user-select:all;letter-spacing: 0.5px;
+}
+#copyBtn{
+  background:rgba(60,140,255,0.2);border:1px solid rgba(60,140,255,0.4);
+  color:#7ec8ff;border-radius:100px;padding:6px 14px;
+  font-size:11px;font-weight:700;cursor:pointer;
+  transition:all 0.2s;flex-shrink:0;outline:none;
+}
+#copyBtn:active{transform:scale(0.92);}
+#copyBtn.copied{
+  background:rgba(0,200,120,0.2);border-color:rgba(0,255,160,0.4);
+  color:#00ffa0;
+}
 </style>
 </head>
 <body>
@@ -119,6 +143,12 @@ body{overflow:hidden;touch-action:none;width:100%;background:#111;font-family:-a
         <div class="dex-dot"></div>
         <span class="dex-main">$FIFAWORLDCAT</span>
       </a>
+    </div>
+    
+    <!-- Copy CA Section -->
+    <div id="caRow">
+      <span id="caText">6DtzvA94NBkXCaXDkwNg4Y5dexDrugU2haw9oHYypump</span>
+      <button id="copyBtn">Copy CA</button>
     </div>
   </div>
 </div>
@@ -212,6 +242,22 @@ updateCountdown();setInterval(updateCountdown,1000);
 document.querySelectorAll(".mascot").forEach(img=>{
   img.addEventListener("click",()=>{
     img.animate([{transform:"scale(1) translateY(0)"},{transform:"scale(1.08) translateY(-6px)"},{transform:"scale(1) translateY(0)"}],{duration:240,easing:"ease-out"});
+  });
+});
+
+// Copy CA Logic
+const copyBtn = document.getElementById("copyBtn");
+const caString = "6DtzvA94NBkXCaXDkwNg4Y5dexDrugU2haw9oHYypump";
+copyBtn.addEventListener("click", () => {
+  navigator.clipboard.writeText(caString).then(() => {
+    copyBtn.textContent = "Copied!";
+    copyBtn.classList.add("copied");
+    setTimeout(() => {
+      copyBtn.textContent = "Copy CA";
+      copyBtn.classList.remove("copied");
+    }, 2000);
+  }).catch(err => {
+    console.error("Gagal menyalin CA", err);
   });
 });
 </script>
